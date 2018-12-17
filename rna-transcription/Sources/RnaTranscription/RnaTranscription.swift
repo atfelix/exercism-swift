@@ -1,5 +1,5 @@
 enum TranscriptionError: Error {
-    case invalidNucleotide
+    case invalidNucleotide(String)
 }
 
 struct Nucleotide {
@@ -8,10 +8,10 @@ struct Nucleotide {
 
     init(_ dna: String) throws {
         rna = try dna.reduce("", { (acc, char) in
-            guard let char = Nucleotide.conversionDictionary[char] else {
-                throw TranscriptionError.invalidNucleotide
+            guard let rnaChar = Nucleotide.conversionDictionary[char] else {
+                throw TranscriptionError.invalidNucleotide("\(char) is not a valid Nucleotide")
             }
-            return acc + String(char)
+            return acc + String(rnaChar)
         })
     }
 

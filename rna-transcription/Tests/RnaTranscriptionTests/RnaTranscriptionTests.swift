@@ -2,8 +2,6 @@ import XCTest
 @testable import RnaTranscription
 
 class RnaTranscriptionTests: XCTestCase {
-    static let longTest = (0..<100000).reduce("") { acc, _ in acc + "A" }
-    static let x = (0..<100000).reduce("") { acc, _ in acc + "U" }
     func testRnaComplementOfCytosineIsGuanine() {
         XCTAssertEqual("G", try Nucleotide("C").complementOfDNA())
     }
@@ -21,33 +19,36 @@ class RnaTranscriptionTests: XCTestCase {
     }
 
     func testRnaComplement() {
-        XCTAssertEqual("UGCACCAGAAUU" + RnaTranscriptionTests.x, try Nucleotide("ACGTGGTCTTAA" + RnaTranscriptionTests.longTest).complementOfDNA())
+        XCTAssertEqual("UGCACCAGAAUU", try Nucleotide("ACGTGGTCTTAA").complementOfDNA())
     }
 
     func testInvalidRnaComplementOfUracil() {
-        XCTAssertThrowsError(try Nucleotide("U").complementOfDNA())
-
-        // Uncomment to see more specific error handling
-        XCTAssertThrowsError(try Nucleotide("U").complementOfDNA(), "This didn't work") { (error) in
-            XCTAssertEqual(error as? RnaTranscription.TranscriptionError, RnaTranscription.TranscriptionError.invalidNucleotide)
+        XCTAssertThrowsError(try Nucleotide("U").complementOfDNA()) { (error) in
+            if case let RnaTranscription.TranscriptionError.invalidNucleotide(message) = error {
+                XCTAssertTrue(message == "U is not a valid Nucleotide")
+            } else {
+                XCTFail("Expected error not thrown")
+            }
         }
     }
 
     func testInvalidRnaComplementOfXXX() {
-        XCTAssertThrowsError(try Nucleotide("XXX").complementOfDNA())
-
-        // Uncomment to see more specific error handling
-        XCTAssertThrowsError(try Nucleotide("XXX").complementOfDNA(), "This didn't work") { (error) in
-            XCTAssertEqual(error as? RnaTranscription.TranscriptionError, RnaTranscription.TranscriptionError.invalidNucleotide)
+        XCTAssertThrowsError(try Nucleotide("XXX").complementOfDNA()) { (error) in
+            if case let RnaTranscription.TranscriptionError.invalidNucleotide(message) = error {
+                XCTAssertTrue(message == "X is not a valid Nucleotide")
+            } else {
+                XCTFail("Expected error not thrown")
+            }
         }
     }
 
     func testInvalidRnaComplementOfACGTXXXCTTAA() {
-        XCTAssertThrowsError(try Nucleotide("ACGTXXXCTTAA").complementOfDNA())
-
-        // Uncomment to see more specific error handling
-        XCTAssertThrowsError(try Nucleotide("ACGTXXXCTTAA").complementOfDNA(), "This didn't work") { (error) in
-            XCTAssertEqual(error as? RnaTranscription.TranscriptionError, RnaTranscription.TranscriptionError.invalidNucleotide)
+        XCTAssertThrowsError(try Nucleotide("ACGTXXXCTTAA").complementOfDNA()) { error in
+            if case let RnaTranscription.TranscriptionError.invalidNucleotide(message) = error {
+                XCTAssertTrue(message == "X is not a valid Nucleotide")
+            } else {
+                XCTFail("Expected error not thrown")
+            }
         }
     }
 

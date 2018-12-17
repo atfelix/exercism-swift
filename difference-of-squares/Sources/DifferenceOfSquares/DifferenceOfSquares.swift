@@ -1,14 +1,14 @@
 struct Squares {
     private let n: Int
     let sumOfSquares: Int
-    let squareOfSums: Int
+    let squareOfSum: Int
     let differenceOfSquares: Int
 
     init(_ value: Int) {
         n = value
         sumOfSquares = squaresSummed(n)
-        squareOfSums = sumsSquared(n)
-        differenceOfSquares = squareOfSums - sumOfSquares
+        squareOfSum = sumsSquared(n)
+        differenceOfSquares = squareOfSum - sumOfSquares
     }
 }
 
