@@ -3,7 +3,13 @@ struct Robot {
     private var generator: NameGenerator
 
     init() {
-        generator = NameGenerator()
+        generator = NameGenerator(collections:
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "0123456789",
+            "0123456789",
+            "0123456789"
+        )
         name = generator.randomName()
     }
 
