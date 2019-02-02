@@ -44,39 +44,39 @@ class PhoneNumberTests: XCTestCase {
         XCTAssertEqual(result.number, expected)
     }
 
-//    func testAreaCode() {
-//        let startingNumber = "2234567890"
-//        let expected = "223"
-//        let number = PhoneNumber(startingNumber)
-//        let result = number.areaCode
-//        XCTAssertEqual(result, expected)
-//    }
-//
-//    func testPrettyPrint() {
-//        let startingNumber = "2234567890"
-//        let expected = "(223) 456-7890"
-//        let number = PhoneNumber(startingNumber)
-//        XCTAssertEqual(String(describing: number), expected)
-//    }
-//
-//    func testPrettyPrintWithFullUSPhoneNumber() {
-//        let startingNumber = "12234567890"
-//        let expected = "(223) 456-7890"
-//        let number = PhoneNumber(startingNumber)
-//        XCTAssertEqual(String(describing: number), expected)
-//    }
-//
-//    static var allTests: [(String, (PhoneNumberTests) -> () throws -> Void)] {
-//        return [
-//            ("testValidWithTenDigits", testValidWithTenDigits),
-//            ("testCleansNumber", testCleansNumber),
-//            ("testCleansNumberWithDots", testCleansNumberWithDots),
-//            ("testValidWithElevenDigitsAndFirstIsOne", testValidWithElevenDigitsAndFirstIsOne),
-//            ("testInvalidWhenElevenDigits", testInvalidWhenElevenDigits),
-//            ("testInvalidWhenNineDigits", testInvalidWhenNineDigits),
-//            ("testAreaCode", testAreaCode),
-//            ("testPrettyPrint", testPrettyPrint),
-//            ("testPrettyPrintWithFullUSPhoneNumber", testPrettyPrintWithFullUSPhoneNumber),
-//        ]
-//    }
+    func testAreaCode() {
+        let startingNumber = "2234567890"
+        let expected = "223"
+        let number = PhoneNumber(startingNumber)
+        let result = number.areaCode
+        XCTAssertEqual(result, expected)
+    }
+
+    func testPrettyPrint() {
+        let startingNumber = "2234567890"
+        let expected = "(223) 456-7890"
+        let number = PhoneNumber(startingNumber)
+        XCTAssertEqual(String(describing: number), expected)
+    }
+
+    func testPrettyPrintWithFullUSPhoneNumber() {
+        let startingNumber = "12234567890"
+        let expected = "(223) 456-7890"
+        let number = PhoneNumber(startingNumber)
+        XCTAssertEqual(String(describing: number), expected)
+    }
+
+    static var allTests: [(String, (PhoneNumberTests) -> () throws -> Void)] {
+        return [
+            ("testValidWithTenDigits", testValidWithTenDigits),
+            ("testCleansNumber", testCleansNumber),
+            ("testCleansNumberWithDots", testCleansNumberWithDots),
+            ("testValidWithElevenDigitsAndFirstIsOne", testValidWithElevenDigitsAndFirstIsOne),
+            ("testInvalidWhenElevenDigits", testInvalidWhenElevenDigits),
+            ("testInvalidWhenNineDigits", testInvalidWhenNineDigits),
+            ("testAreaCode", testAreaCode),
+            ("testPrettyPrint", testPrettyPrint),
+            ("testPrettyPrintWithFullUSPhoneNumber", testPrettyPrintWithFullUSPhoneNumber),
+        ]
+    }
 }

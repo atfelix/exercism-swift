@@ -2,11 +2,23 @@ import Foundation
 
 struct PhoneNumber {
     let number: String
+    let areaCode: String
+    let description: String
+
+    private let exchangeCode: String
+    private let subscriberNumber: String
 
     init(_ number: String) {
-        self.number = converted(parsed(number))
+        let (areaCode, exchangeCode, subscriberNumber) = converted(parsed(number))
+        self.areaCode = areaCode
+        self.exchangeCode = exchangeCode
+        self.subscriberNumber = subscriberNumber
+        self.number = areaCode + exchangeCode + subscriberNumber
+        self.description = "(\(areaCode)) \(exchangeCode)-\(subscriberNumber)"
     }
 }
+
+extension PhoneNumber: CustomStringConvertible {}
 
 private func parsed(_ number: String) -> String {
     return number.filter { char in
@@ -15,11 +27,18 @@ private func parsed(_ number: String) -> String {
     }
 }
 
-private func converted(_ number: String) -> String {
+private func converted(_ number: String) -> (areaCode: String, exchangeCode: String, subscriberNumber: String) {
     guard number.count == 11 && number.hasPrefix("1")
         || number.count == 10 && !number.hasPrefix("1")
-        else { return "0000000000" }
+        else { return ("000", "000", "0000") }
 
-    let startIndex = number.firstIndex(where: { $0 != "1" }) ?? number.startIndex
-    return String(number[startIndex...])
+    let areaCodeStartIndex = number.firstIndex(where: { $0 != "1" }) ?? number.startIndex
+    let exchangeCodeStartIndex = number.index(areaCodeStartIndex, offsetBy: 3)
+    let subscriberNumberStartIndex = number.index(exchangeCodeStartIndex, offsetBy: 3)
+
+    return (
+        String(number[areaCodeStartIndex..<exchangeCodeStartIndex]),
+        String(number[exchangeCodeStartIndex..<subscriberNumberStartIndex]),
+        String(number[subscriberNumberStartIndex..<number.endIndex])
+    )
 }
