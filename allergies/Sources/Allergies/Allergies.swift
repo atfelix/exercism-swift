@@ -23,13 +23,13 @@ struct Allergies {
         ]
     }
 
-    let number: Allergy
+    let allergy: Allergy
 
     init(_ number: UInt) {
-        self.number = Allergy.all.intersection(Allergy(rawValue: number))
+        self.allergy = Allergy.all.intersection(Allergy(rawValue: number))
     }
 
     func hasAllergy(_ allergy: Allergy) -> Bool {
-        return number.contains(allergy)
+        return self.allergy.contains(allergy)
     }
 }
